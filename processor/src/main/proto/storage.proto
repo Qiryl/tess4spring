@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package storage;
+
+option java_package = "io.grpc.example.storage";
+option java_multiple_files = true;
+
+service StorageService {
+  rpc UpdateFileMeta (UpdateFileMetaRequest) returns (UpdateFileMetaResponse);
+}
+
+message UpdateFileMetaRequest {
+  string id = 1;
+  string link = 2;
+}
+
+message UpdateFileMetaResponse {}

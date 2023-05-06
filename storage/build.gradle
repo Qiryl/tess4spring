@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.6'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.google.protobuf' version '0.9.1'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '19'
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.7"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.54.1'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.github.lognet:grpc-spring-boot-starter:5.1.1'
+    implementation 'io.grpc:grpc-netty-shaded:'
+    implementation 'io.grpc:grpc-protobuf:1.54.1'
+    implementation 'io.grpc:grpc-stub:1.54.1'
+    // https://mvnrepository.com/artifact/io.grpc/grpc-all
+    implementation 'io.grpc:grpc-all:1.54.1'
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.apache.kafka:kafka-clients'
+    implementation 'io.minio:minio:8.5.2'
+    implementation 'mysql:mysql-connector-java:8.0.27'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
